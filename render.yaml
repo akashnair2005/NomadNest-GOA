@@ -4,7 +4,6 @@ services:
     name: nomadnest-backend
     env: node
     region: singapore          # Closest to Goa for low latency
-    plan: free                 # Free tier on Render
     rootDir: backend
     buildCommand: npm install
     startCommand: node src/server.js
@@ -30,7 +29,6 @@ services:
   - type: web
     name: nomadnest-frontend
     env: static
-    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
