@@ -1,9 +1,9 @@
-run = "cd backend && npm install && npm start"
+run = "npm install && npm start"
 entrypoint = "src/server.js"
 
 [env]
 NODE_ENV = "production"
-PORT = "3000"
+PORT = "5000"
 ANTHROPIC_API_KEY = "sk-ant-demo-key"
 FIREBASE_PROJECT_ID = "nomadnest-goa-demo"
 FRONTEND_URL = "https://nomadnest-goa.vercel.app"
