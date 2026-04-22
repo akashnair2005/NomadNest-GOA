@@ -27,8 +27,10 @@ services:
           property: host
 
   # ─── Frontend (static site) ────────────────────────────────────
-  - type: static
+  - type: web
     name: nomadnest-frontend
+    env: static
+    plan: free
     rootDir: frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
