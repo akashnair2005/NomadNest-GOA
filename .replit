@@ -1,4 +1,4 @@
-run = "git fetch origin main && git reset --hard origin/main && cd backend && npm start"
+run = "chmod +x backend/start.sh && ./backend/start.sh"
 
 [env]
 NODE_ENV = "production"
