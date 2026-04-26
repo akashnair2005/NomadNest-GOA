@@ -17,26 +17,9 @@ const PORT = process.env.PORT || 3001;
 // Security & middleware
 app.use(helmet({ contentSecurityPolicy: false }));
 
-// CORS configuration - allow specific origins
-const allowedOrigins = [
-  'https://nomad-nest-goa.vercel.app',
-  'http://localhost:5173',
-  'http://localhost:3000',
-  'http://127.0.0.1:5173',
-  'http://127.0.0.1:3000'
-];
-
+// CORS configuration - allow all origins temporarily for debugging
 app.use(cors({
-  origin: function(origin, callback) {
-    // Allow requests with no origin (mobile apps, curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('CORS not allowed'));
-    }
-  },
+  origin: '*',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   credentials: false,
   optionsSuccessStatus: 200
