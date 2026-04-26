@@ -16,12 +16,13 @@ const PORT = process.env.PORT || 3001;
 
 // Security & middleware
 app.use(helmet({ contentSecurityPolicy: false }));
+
+// CORS configuration - allow all origins to prevent blocking
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow all origins for now to fix CORS issue
-    callback(null, true);
-  },
-  credentials: true,
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  credentials: false,
+  optionsSuccessStatus: 200
 }));
 app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
