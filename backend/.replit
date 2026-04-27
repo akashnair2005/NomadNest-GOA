@@ -2,6 +2,8 @@ run = "npm start"
 
 [env]
 NODE_ENV = "production"
-GEMINI_API_KEY = "REMOVED_SECRET"
 FIREBASE_PROJECT_ID = "nomadnest-goa-demo"
 FRONTEND_URL = "https://nomadnest-goa.vercel.app"
+
+# Note: Set GEMINI_API_KEY as a Replit Secret via dashboard
+# Do not hardcode API keys in this file
