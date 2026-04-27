@@ -2,6 +2,6 @@ run = "chmod +x backend/start.sh && ./backend/start.sh"
 
 [env]
 NODE_ENV = "production"
-ANTHROPIC_API_KEY = "sk-ant-demo-key"
+GEMINI_API_KEY = "your-gemini-key-here"
 FIREBASE_PROJECT_ID = "nomadnest-goa-demo"
 FRONTEND_URL = "https://nomadnest-goa.vercel.app"

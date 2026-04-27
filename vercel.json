@@ -1,9 +1,8 @@
 {
-  "buildCommand": "npm install && npm run build",
-  "outputDirectory": "dist",
-  "functions": {
-    "api/**/*.js": {
-      "runtime": "nodejs18.x"
-    }
+  "buildCommand": "cd frontend && npm install && npm run build",
+  "outputDirectory": "frontend/dist",
+  "public": "frontend/dist",
+  "env": {
+    "VITE_API_BASE_URL": "@vite_api_base_url"
   }
 }

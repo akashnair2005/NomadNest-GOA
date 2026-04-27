@@ -1,11 +1,10 @@
-const Anthropic = require('@anthropic-ai/sdk');
+const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-const client = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const model = client.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
 
 /**
- * Match workspaces to user's work style using Claude
+ * Match workspaces to user's work style using Gemini
  */
 async function matchWorkspaces(userProfile, workspaces) {
   const prompt = `You are NomadNest AI, an expert coworking space matcher for digital nomads in Goa, India.
@@ -53,13 +52,8 @@ Analyze the user's needs and return a JSON response (ONLY JSON, no markdown) wit
 Return top 3-5 workspace matches ordered by relevance score. Be specific, not generic.`;
 
   try {
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 1200,
-      messages: [{ role: 'user', content: prompt }],
-    });
-
-    const rawText = response.content[0].text.trim();
+    const response = await model.generateContent(prompt);
+    const rawText = response.response.text().trim();
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('No JSON found in AI response');
     
@@ -113,13 +107,8 @@ Generate a creative, specific meetup suggestion as JSON (ONLY JSON):
 }`;
 
   try {
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 600,
-      messages: [{ role: 'user', content: prompt }],
-    });
-
-    const rawText = response.content[0].text.trim();
+    const response = await model.generateContent(prompt);
+    const rawText = response.response.text().trim();
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
     return jsonMatch ? JSON.parse(jsonMatch[0]) : null;
   } catch (err) {
@@ -145,12 +134,8 @@ ${availableNomads.slice(0, 5).map(n => `- ${n.displayName}: ${n.skills?.join(', 
 Write a short, warm, specific connection message (2-3 sentences) suggesting who they should reach out to and why. Be conversational, not robotic. Return plain text only.`;
 
   try {
-    const response = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 200,
-      messages: [{ role: 'user', content: prompt }],
-    });
-    return response.content[0].text.trim();
+    const response = await model.generateContent(prompt);
+    return response.response.text().trim();
   } catch (err) {
     return "Check out the nomads currently online — there are some great potential collaborators nearby!";
   }

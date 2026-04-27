@@ -46,12 +46,12 @@ nomadnest-goa/
 │   │   ├── server.js             # Main Express app
 │   │   ├── routes/
 │   │   │   ├── workspaces.js     # Workspace CRUD + reports
-│   │   │   ├── ai.js             # Claude API endpoints
+│   │   │   ├── ai.js             # Gemini API endpoints
 │   │   │   ├── checkins.js       # Live check-in system
 │   │   │   ├── users.js          # Nomad profiles
 │   │   │   └── meetups.js        # Events management
 │   │   ├── services/
-│   │   │   ├── aiService.js      # Claude prompt engineering
+│   │   │   ├── aiService.js      # Gemini prompt engineering
 │   │   │   └── firebase.js       # Firestore connection
 │   │   └── data/
 │   │       └── mockData.js       # 6 verified Goa workspaces
@@ -69,7 +69,7 @@ nomadnest-goa/
 ### Prerequisites
 - Node.js 18+
 - npm or yarn
-- Anthropic API key (get one at console.anthropic.com)
+- Google Gemini API key (get one at https://ai.google.dev/)
 
 ### 1. Clone & install
 ```bash
@@ -82,7 +82,7 @@ npm run install:all
 ```bash
 cd backend
 cp .env.example .env
-# Edit .env and add your ANTHROPIC_API_KEY
+# Edit .env and add your GEMINI_API_KEY from https://ai.google.dev/
 ```
 
 ### 3. Configure frontend
@@ -115,7 +115,7 @@ Health check: http://localhost:3001/health
 3. Connect your GitHub repo
 4. Render reads `render.yaml` and creates both services automatically
 5. In the Render dashboard, set these **secret environment variables** on the backend service:
-   - `ANTHROPIC_API_KEY` → your key from console.anthropic.com
+   - `GEMINI_API_KEY` → your key from https://ai.google.dev/
    - `FIREBASE_PROJECT_ID` → your project ID
    - `FIREBASE_SERVICE_ACCOUNT_KEY` → full JSON (paste as single line)
 6. Trigger a deploy — both services will be live in ~3 minutes
@@ -151,7 +151,7 @@ Health check: http://localhost:3001/health
 |---|---|---|
 | `PORT` | No | Server port (default: 3001) |
 | `NODE_ENV` | No | `development` or `production` |
-| `ANTHROPIC_API_KEY` | **Yes** | Claude API key |
+| `GEMINI_API_KEY` | **Yes** | Google Gemini API key |
 | `FIREBASE_PROJECT_ID` | No | Firebase project (for Firestore) |
 | `FIREBASE_SERVICE_ACCOUNT_KEY` | No | Firebase service account JSON |
 | `FRONTEND_URL` | No | Frontend URL for CORS (production) |
@@ -167,29 +167,29 @@ Health check: http://localhost:3001/health
 
 ## 🤖 AI Architecture
 
-### Claude Integration (3 endpoints)
+### Gemini Integration (3 endpoints)
 
 **1. Workspace Matching** (`POST /api/ai/match`)
 - Takes user profile: work style, skills, must-haves, budget, mood
-- Sends enriched workspace data to Claude claude-sonnet-4-20250514
+- Sends enriched workspace data to Gemini 1.5 Flash
 - Returns: ranked recommendations with match scores, reasons, pro tips
 - Fallback: returns top 3 by WiFi score if API fails
 
 **2. Meetup Generation** (`GET /api/ai/meetup`)
 - Reads active nomad community (skills, areas)
-- Claude generates: meetup title, theme, venue, format, icebreaker
+- Gemini generates: meetup title, theme, venue, format, icebreaker
 - New suggestion generated on each request
 
 **3. Collaboration Matching** (`POST /api/ai/collab`)
 - Takes seeker profile + available nomads
-- Claude writes a personalized, warm connection message
+- Gemini writes a personalized, warm connection message
 - Suggests specific people to reach out to
 
 ### Prompt Engineering Patterns Used
-- **Structured JSON output**: Claude asked to return only valid JSON, parsed safely
+- **Structured JSON output**: Gemini asked to return only valid JSON, parsed safely
 - **Graceful fallback**: Every AI call has a non-AI fallback
-- **Context injection**: Full workspace/nomad data passed to Claude for accurate reasoning
-- **Role framing**: Claude introduced as "NomadNest AI" for consistent persona
+- **Context injection**: Full workspace/nomad data passed to Gemini for accurate reasoning
+- **Role framing**: Gemini introduced as "NomadNest AI" for consistent persona
 
 ---
 

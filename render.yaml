@@ -13,7 +13,7 @@ services:
         value: production
       - key: PORT
         value: 3001
-      - key: ANTHROPIC_API_KEY
+      - key: GEMINI_API_KEY
         sync: false            # Set this manually in Render dashboard
       - key: FIREBASE_PROJECT_ID
         sync: false
