@@ -20,11 +20,23 @@ app.set('trust proxy', 1);
 // Security & middleware
 app.use(helmet({ contentSecurityPolicy: false }));
 
-// CORS configuration - allow all origins temporarily for debugging
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  'https://nomad-nest-goa-gzdc.vercel.app',
+  'http://localhost:5173',
+  'http://localhost:3000'
+].filter(Boolean);
+
 app.use(cors({
-  origin: '*',
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  credentials: false,
+  credentials: true,
   optionsSuccessStatus: 200
 }));
 app.use(morgan('combined'));
