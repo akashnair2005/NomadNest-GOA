@@ -1,7 +1,7 @@
 const { GoogleGenerativeAI } = require('@google/generative-ai');
 
 const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = client.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+const model = client.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
 
 /**
  * Match workspaces to user's work style using Gemini
@@ -55,7 +55,10 @@ Return top 3-5 workspace matches ordered by relevance score. Be specific, not ge
     const response = await model.generateContent(prompt);
     const rawText = response.response.text().trim();
     const jsonMatch = rawText.match(/\{[\s\S]*\}/);
-    if (!jsonMatch) throw new Error('No JSON found in AI response');
+    if (!jsonMatch) {
+      console.error('[AI] No JSON found in response:', rawText);
+      throw new Error('No JSON found in AI response');
+    }
     
     return JSON.parse(jsonMatch[0]);
   } catch (err) {

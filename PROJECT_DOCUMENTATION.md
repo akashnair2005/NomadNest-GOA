@@ -6,11 +6,11 @@
 
 **NomadNest GoaAI** is an AI-powered hyper-local platform designed to solve workspace discovery and community building challenges for digital nomads in Goa, India. The platform integrates AI-driven workspace matching algorithms with real-time community engagement features to create a seamless experience for remote workers seeking optimal work environments and professional connections.
 
-The project addresses the dual challenge of discovering suitable workspaces (cafés, co-working spaces) with reliable WiFi, low noise levels, and good ambiance, while simultaneously fostering a collaborative community of digital nomads. The core objective is to leverage **Claude AI (Anthropic)** for intelligent workspace recommendations based on individual work style preferences, combined with a **live check-in system** for real-time community awareness and collaboration opportunities.
+The project addresses the dual challenge of discovering suitable workspaces (cafés, co-working spaces) with reliable WiFi, low noise levels, and good ambiance, while simultaneously fostering a collaborative community of digital nomads. The core objective is to leverage **Google Gemini** for intelligent workspace recommendations based on individual work style preferences, combined with a **live check-in system** for real-time community awareness and collaboration opportunities.
 
 **Implementation Details:**
 - **Frontend**: React 18 + Vite with React Router, Framer Motion for animations, Lucide React for UI icons, and Axios for API communication
-- **Backend**: Node.js Express server with Anthropic SDK for AI integration, Firebase (Firestore) for data persistence, rate limiting, and security middleware (Helmet, CORS)
+- **Backend**: Node.js Express server with Google Gemini for AI integration, Firebase (Firestore) for data persistence, rate limiting, and security middleware (Helmet, CORS)
 - **AI Integration**: Claude API for workspace matching, meetup generation, and skill-based collaboration suggestions
 - **Deployment**: Render YAML configuration for one-click deployment with environment-based configuration
 
@@ -127,7 +127,7 @@ The system employs a **client-server architecture** with **AI-augmented decision
     │                         │                          │
 ┌───▼──────────────┐  ┌───────▼────────────┐  ┌────────▼───────────┐
 │                  │  │                    │  │                    │
-│ Anthropic Claude │  │  Firebase Firestore│  │  Environment      │
+│ Google Gemini │  │  Firebase Firestore│  │  Environment      │
 │ API v0.24.3      │  │  (Data Persistence)│  │  Configuration    │
 │                  │  │                    │  │                    │
 │ • Workspace      │  │  Collections:      │  │  • API Keys       │
@@ -163,7 +163,7 @@ The system employs a **client-server architecture** with **AI-augmented decision
    - **Meetup Routes**: Event creation, scheduling, and AI-powered suggestion engine
 
 4. **External Services**
-   - **Anthropic Claude API**: Advanced AI for contextual workspace matching and community insights
+   - **Google Gemini API**: Advanced AI for contextual workspace matching and community insights
    - **Firebase Firestore**: Cloud database for scalable, real-time data persistence
    - **Environment Configuration**: Secure credential management via dotenv
 

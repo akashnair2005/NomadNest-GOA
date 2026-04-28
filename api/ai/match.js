@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const backendUrl = process.env.BACKEND_URL || 'https://nomad-nest-goa--akudhuvi.replit.app';
+    const backendUrl = process.env.BACKEND_URL;
     
     const response = await fetch(`${backendUrl}/api/ai/match`, {
       method: 'POST',

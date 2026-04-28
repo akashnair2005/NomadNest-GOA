@@ -2,8 +2,13 @@ run = "npm start"
 
 [env]
 NODE_ENV = "production"
-FIREBASE_PROJECT_ID = "nomadnest-goa-demo"
 FRONTEND_URL = "https://nomadnest-goa.vercel.app"
 
-# Note: Set GEMINI_API_KEY as a Replit Secret via dashboard
-# Do not hardcode API keys in this file
+# Note: Set the following as Replit Secrets via the dashboard.
+# Do not hardcode API keys or credentials in this file.
+#
+# GEMINI_API_KEY: Your Google AI API key.
+# FIREBASE_PROJECT_ID: Your Firebase project ID.
+# FIREBASE_CLIENT_EMAIL: Your Firebase service account client email.
+# FIREBASE_PRIVATE_KEY: Your Firebase service account private key.
+

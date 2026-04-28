@@ -3,11 +3,14 @@ set -e
 
 echo "=== Starting NomadNest Backend ==="
 
-# Pull latest code
-echo "Pulling latest code from GitHub..."
-git fetch origin main 2>/dev/null || true
-git reset --hard origin/main 2>/dev/null || true
-git pull origin main 2>/dev/null || true
+# Install dependencies
+echo "Installing Node.js dependencies..."
+npm install
+
+# Start the server
+echo "Starting server..."
+npm start
+
 
 # Install dependencies
 echo "Installing dependencies..."
